@@ -21,9 +21,11 @@ module.exports = (robot) ->
 
     now = new Date().pretty()
     if result is null and not doing and today isnt now
+      msg.send "I'm on it, Boss."
       today = now
       crawl(msg, re, 0, 100, 500, query)
     else
+      msg.send "I've just found in today results."
       search(msg, query)
 
 crawl = (msg, re, start, num, end, query) ->
@@ -53,7 +55,7 @@ search = (msg, query) ->
   msg.send out
 
 zeropad = (x) ->
-  if x < 10 then '0'+x else ''+x
+  if x < 10 then '0' + x else '' + x
 
 Date::pretty = ->
   d = zeropad(this.getDate())

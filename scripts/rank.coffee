@@ -1,5 +1,5 @@
 # Description:
-#   Allows Hubot to search edu app rank.
+#   Allows Hubot to search edu app ranking in Google Play
 #
 # Commands:
 #   hubot rank <query>

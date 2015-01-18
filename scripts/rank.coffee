@@ -20,18 +20,17 @@ module.exports = (robot) ->
       return
 
     now = new Date().pretty()
-    if result is null and not doing and today isnt now
+    if result isnt null and today is now
+      search(msg, query)
+    else
       msg.send "I'm on it, Boss."
       today = now
-      crawl(msg, re, 0, 100, 500, query)
-    else
-      msg.send "I've just found in today results."
-      search(msg, query)
+      crawl(msg, re, 0, 100, 600, query)
 
 crawl = (msg, re, start, num, end, query) ->
   doing = true
   url = "https://play.google.com/store/apps/category/EDUCATION/collection/topselling_free?start=#{start}&num=#{num}"
-  msg.send "crawling in #{start}...#{start + num}"
+  msg.send "crawling range: #{start}...#{start + num}"
   msg.http(url)
     .header('Content-Type', 'application/x-www-form-urlencoded')
     .header('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36')
@@ -51,8 +50,11 @@ crawl = (msg, re, start, num, end, query) ->
 search = (msg, query) ->
   re = new RegExp("(^\\d+\.[ \\t]+.*?#{query}.*)", "igm")
   res = (res[0] while (res = re.exec(result)) isnt null)
-  out = res.join('\n')
-  msg.send out
+  out = res.join('\n').trim()
+  if out
+    msg.send out
+  else
+    msg.send 'There is no result'
 
 zeropad = (x) ->
   if x < 10 then '0' + x else '' + x

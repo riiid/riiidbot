@@ -27,10 +27,6 @@ If you don't like `docker` (:feelsgood:),
     $ git clone riiid/riiidbot
     $ cd riiidbot
     $ bin/hubot
-
-    [Sun, 04 Dec 2011 18:41:11 GMT] INFO Loading adapter shell
-    [Sun, 04 Dec 2011 18:41:11 GMT] INFO Loading scripts from /home/tomb/Development/hubot/scripts
-    [Sun, 04 Dec 2011 18:41:11 GMT] INFO Loading scripts from /home/tomb/Development/hubot/src/scripts
     Hubot> hubot help
 
 ## Scripting

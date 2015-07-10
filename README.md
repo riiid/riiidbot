@@ -14,7 +14,7 @@ Install [docker](https://docs.docker.com/installation/).
 
     $ docker run -it riiidbot
 
-Overrid `entrypoint` to test it locally.
+Override `entrypoint` to test it locally.
 
     $ docker run -it --entrypoint=/src/hubot/bin/hubot riiidbot
 

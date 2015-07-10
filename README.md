@@ -12,7 +12,7 @@ Install [docker](https://docs.docker.com/installation/).
 
 ## Run with docker
 
-    $ docker run -it riiidbot
+    $ docker run -it -e HUBOT_SLACK_TOKEN=<YOUR_SLACK_TOKEN> riiidbot
 
 Override `entrypoint` to test it locally.
 

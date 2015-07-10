@@ -5,4 +5,4 @@ WORKDIR /src/hubot/
 ADD . /src/hubot/
 RUN npm install
 
-ENTRYPOINT ["/bin/sh","/src/hubot/run"]
+ENTRYPOINT ["/src/hubot/bin/hubot", "-a", "slack"]

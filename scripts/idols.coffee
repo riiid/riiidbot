@@ -34,7 +34,7 @@ class Idol
   query: (msg) =>
     idol    = msg.match[1] ? msg.random _.values(@data.names)
     keyword = msg.match[2] ? msg.random _.values(@data.keywords)
-    query   = "#{idol} #{keyword}"
+    query   = "#{idol} #{keyword ? ''}".trim()
     msg.send ":mag: #{query}... I have found the thing."
     imageMe msg, query, true, true, (url) -> msg.send url
 

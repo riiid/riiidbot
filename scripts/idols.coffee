@@ -25,7 +25,7 @@ class Idol
 
   getRegEx: () ->
     idols = _.values(@data.names).join '|'
-    new RegExp "(#{idols})\\s?(.*)?", "i"
+    new RegExp "(#{idols})\\s?(.*)?", "i" if idols.length > 0
 
   removePreviousListener: () ->
     _lstnrs = @robot.listeners
@@ -42,7 +42,7 @@ class Idol
     @removePreviousListener()
     @data = data
     @regex = @getRegEx()
-    @robot.respond @regex, @query
+    @robot.respond @regex, @query if @regex?
 
   updateKeywords: (keywords) ->
     @data.keywords = keywords
@@ -51,7 +51,7 @@ class Idol
     @removePreviousListener()
     @data.names = names
     @regex = @getRegEx()
-    @robot.respond @regex, @query
+    @robot.respond @regex, @query if @regex?
 
   update: (key, data) ->
     switch key
@@ -79,8 +79,9 @@ module.exports = (robot) ->
     return unless auth
     fb.once 'value', (res) -> idol.update 'all', res.val() if res.exists()
 
-  fb.on 'child_changed', (data) ->
-    idol.update data.key(), data.val()
+  fb.on 'child_changed', (data) -> idol.update data.key(), data.val()
+  fb.on 'child_added', (data) -> idol.update data.key(), data.val()
+  fb.on 'child_removed', (data) -> idol.update data.key(), {}
 
   robot.respond /idol$/i, (msg) -> idol.query msg
 

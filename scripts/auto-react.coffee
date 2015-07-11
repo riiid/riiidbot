@@ -26,13 +26,13 @@ class React
 
   getRegEx: () ->
     keywords = _.values(@data.keywords).join '|'
-    new RegExp keywords, "i"
+    new RegExp keywords, "i" if keywords.length > 0
 
   removePreviousListener: () ->
     _lstnrs = @robot.listeners
     @robot.listeners = _.reject _lstnrs, (lstnr) => lstnr.callback == @react
 
-  rnd: (basic) -> 
+  rnd: (basic) ->
     Math.floor(Math.random() * 100) < basic
 
   react: (msg) =>
@@ -47,13 +47,13 @@ class React
     @removePreviousListener()
     @data = data
     @regex = @getRegEx()
-    @robot.hear @regex, @react
+    @robot.hear @regex, @react if @regex?
 
   updateKeywords: (keywords) ->
     @removePreviousListener()
     @data.keywords = keywords
     @regex = @getRegEx()
-    @robot.hear @regex, @react
+    @robot.hear @regex, @react if @regex?
 
   updateResponses: (responses) ->
     @data.responses = responses
@@ -84,8 +84,9 @@ module.exports = (robot) ->
     return unless auth
     fb.once 'value', (res) -> react.update 'all', res.val() if res.exists()
 
-  fb.on 'child_changed', (data) ->
-    react.update data.key(), data.val()
+  fb.on 'child_changed', (data) -> react.update data.key(), data.val()
+  fb.on 'child_added', (data) -> react.update data.key(), data.val()
+  fb.on 'child_removed', (data) -> react.update data.key(), {}
 
   robot.respond /react show/i, (msg) ->
     keywords  = _.values(react.data.keywords).join()

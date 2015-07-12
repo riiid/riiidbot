@@ -2,11 +2,11 @@
 #   React with user's swearing keyword on chat room
 #
 # Commands:
-#   hubot react show              - Show registerd react keywords and responses.
-#   hubot react add <keyword>     - Add react keyword in firebase.
-#   hubot react del <keyword>     - Delete react keyword in firebase.
-#   hubot react addres <response> - Add response pattern in firebase.
-#   hubot react delres <response> - Delete response pattern in firebase.
+#   hubot 리액션 보기 - Show registerd react keywords and responses.
+#   hubot 리액션 추가 <keyword> - Add react keyword in firebase.
+#   hubot 리액션 삭제 <keyword> - Delete react keyword in firebase.
+#   hubot 리액션 반응추가 <response> - Add response pattern in firebase.
+#   hubot 리액션 반응삭제 <response> - Delete response pattern in firebase.
 #
 # Author:
 #   chitacan
@@ -88,25 +88,25 @@ module.exports = (robot) ->
   fb.on 'child_added', (data) -> react.update data.key(), data.val()
   fb.on 'child_removed', (data) -> react.update data.key(), {}
 
-  robot.respond /react show/i, (msg) ->
+  robot.respond /리액션 보기/i, (msg) ->
     keywords  = _.values(react.data.keywords).join()
     responses = _.values(react.data.responses).join()
     msg.send ":key: #{keywords}"
     msg.send ":name_badge: #{responses}"
 
-  robot.respond /react (add|del) (.*)/i, (msg) ->
+  robot.respond /리액션 (추가|삭제) (.*)/i, (msg) ->
     cmd = msg.match[1]
     key = msg.match[2]
     id = sha key
     ref = keyRef.child id
-    if cmd is 'add' then add ref, key, msg else del ref, key, msg
+    if cmd is '추가' then add ref, key, msg else del ref, key, msg
 
-  robot.respond /react (addres|delres) (.*)/i, (msg) ->
+  robot.respond /리액션 (반응추가|반응삭제) (.*)/i, (msg) ->
     cmd = msg.match[1].replace('res', '')
     res = msg.match[2]
     id = sha res
     ref = resRef.child id
-    if cmd is 'add' then add ref, res, msg else del ref, res, msg
+    if cmd is '반응추가' then add ref, res, msg else del ref, res, msg
 
 sha = (data) ->
   s = C.createHash 'sha1'

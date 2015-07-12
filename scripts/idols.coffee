@@ -3,12 +3,12 @@
 #
 # Commands:
 #   hubot <name> (keyword) - get idol image based on keywords.
-#   hubot idol - get random idol image.
-#   hubot idol show - print saved names & keywords.
-#   hubot idol add <name> - add name in firebase.
-#   hubot idol addkey <keyword> - add keyword in firebase.
-#   hubot idol del <name> - delete name in firebase.
-#   hubot idol delkey <keyword> - detele keyword in firebase.
+#   hubot 아이돌 - get random idol image.
+#   hubot 아이돌 보기 - print saved names & keywords.
+#   hubot 아이돌 추가 <name> - add name in firebase.
+#   hubot 아이돌 키추가 <keyword> - add keyword in firebase.
+#   hubot 아이돌 삭제 <name> - delete name in firebase.
+#   hubot 아이돌 키삭제 <keyword> - detele keyword in firebase.
 #
 # Author:
 #   chitacan
@@ -83,27 +83,27 @@ module.exports = (robot) ->
   fb.on 'child_added', (data) -> idol.update data.key(), data.val()
   fb.on 'child_removed', (data) -> idol.update data.key(), {}
 
-  robot.respond /idol$/i, (msg) -> idol.query msg
+  robot.respond /아이돌$/i, (msg) -> idol.query msg
 
-  robot.respond /idol show/i, (msg) ->
+  robot.respond /아이돌 보기/i, (msg) ->
     names = _.values(idol.data.names)   .join()
     keys  = _.values(idol.data.keywords).join()
     msg.send ":name_badge: #{names}"
     msg.send ":key: #{keys}"
 
-  robot.respond /idol (add|del) (.*)/i, (msg) ->
+  robot.respond /아이돌 (추가|삭제) (.*)/i, (msg) ->
     cmd  = msg.match[1]
     name = msg.match[2]
     id   = sha name
     ref  = nameRef.child id
-    if cmd is 'add' then add ref, name, msg else del ref, name, msg
+    if cmd is '추가' then add ref, name, msg else del ref, name, msg
 
-  robot.respond /idol (addkey|delkey) (.*)/i, (msg) ->
+  robot.respond /아이돌 (키추가|키삭제) (.*)/i, (msg) ->
     cmd = msg.match[1]
     key = msg.match[2]
     id  = sha key
     ref = keyRef.child id
-    if cmd is 'addkey' then add ref, key, msg else del ref, key, msg
+    if cmd is '키추가' then add ref, key, msg else del ref, key, msg
 
 sha = (data) ->
   s = C.createHash 'sha1'

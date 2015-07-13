@@ -2,25 +2,17 @@
 
 Hubot for `riiid`.
 
-## Build docker image
-
-Install [docker](https://docs.docker.com/installation/).
-
-    $ git clone riiid/riiidbot
-    $ cd riiidbot
-    $ docker build -t riiidbot .
-
-## Run with docker
+## Run
 
     $ docker run -it \
       -e HUBOT_SLACK_TOKEN=<YOUR_SLACK_TOKEN> \
       -e FIREBASE_URL=<FIREBASE_URL> \
       -e FIREBASE_SECRET=<FIREBASE_SECRET> \
-      riiidbot
+      riiid/riiidbot
 
 Override `entrypoint` to test it locally.
 
-    $ docker run -it --entrypoint=/src/hubot/bin/hubot riiidbot
+    $ docker run -it --entrypoint=/src/hubot/bin/hubot riiid/riiidbot
 
 > passing `--rm` will always give you fresh container. see `$ docker run --help`.
 

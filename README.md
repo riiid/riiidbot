@@ -5,14 +5,16 @@ Hubot for `riiid`.
 ## Run
 
     $ docker run -it \
+      -p <HOST_PORT>:<PORT_FOR_HUBOT> \
       -e HUBOT_SLACK_TOKEN=<YOUR_SLACK_TOKEN> \
       -e FIREBASE_URL=<FIREBASE_URL> \
       -e FIREBASE_SECRET=<FIREBASE_SECRET> \
+      -e EXPRESS_PORT=<PORT_FOR_HUBOT>
       riiid/riiidbot
 
 Override `entrypoint` to test it locally.
 
-    $ docker run -it --entrypoint=/src/hubot/bin/hubot riiid/riiidbot
+    $ docker run -it -p 9000:9000 --entrypoint=/src/hubot/bin/hubot riiid/riiidbot
 
 > passing `--rm` will always give you fresh container. see `$ docker run --help`.
 

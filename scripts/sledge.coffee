@@ -1,5 +1,6 @@
 # Description:
 #   Debug info listener for sledge (https://github.com/riiid/sledge).
+#   Post to '/hubot/sledge/:room' will send message to 'room'.
 #
 # Dependencies:
 #   None

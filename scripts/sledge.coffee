@@ -30,6 +30,6 @@ module.exports = (robot) ->
       req.body
 
     msg     = data.message
-    content = data.content
+    content = JSON.stringify data.content, null, 2
     robot.messageRoom "#{room}", "#{msg}\n```#{content}```"
     res.send 'OK'

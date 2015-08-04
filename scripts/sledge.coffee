@@ -31,6 +31,6 @@ module.exports = (robot) ->
 
     msg     = data.message
     content = JSON.stringify data.content, null, 2
-    content = if content then "\n```#{content}```" else ''
+    content = if content is '""'  then '' else "\n```#{content}```"
     robot.messageRoom "#{room}", "#{msg} #{content}"
     res.send 'OK'

@@ -24,7 +24,7 @@ If you don't like `docker` (:feelsgood:),
 
     $ git clone riiid/riiidbot
     $ cd riiidbot
-    $ bin/hubot
+    $ npm run start-dev
     Hubot> hubot help
 
 ## Scripting

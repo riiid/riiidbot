@@ -1,8 +1,10 @@
-FROM node:0.12.6-slim
+FROM node:5-slim
 MAINTAINER kyung yeol kim <kykim@riiid.co>
 
-WORKDIR /src/hubot/
-ADD . /src/hubot/
+WORKDIR /src/riiidbot/
+ADD ./package.json /src/riiidbot/package.json
 RUN npm install
+ADD . /src/riiidbot/
 
-ENTRYPOINT ["/src/hubot/bin/hubot", "-a", "slack"]
+ENTRYPOINT ["npm"]
+CMD ["start"]

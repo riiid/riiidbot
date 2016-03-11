@@ -6,5 +6,7 @@ ADD ./package.json /src/riiidbot/package.json
 RUN npm install
 ADD . /src/riiidbot/
 
+EXPOSE 9598
+
 ENTRYPOINT ["npm"]
 CMD ["start"]

@@ -4,17 +4,22 @@ Hubot for `riiid`.
 
 ## Run
 
-    $ docker run -it \
-      -p <HOST_PORT>:<PORT_FOR_HUBOT> \
+Build docker image for `riiidbot`,
+
+    $ docker build -t riiid/riiidbot .
+
+And run,
+
+    $ docker run -it --rm riiid/riiidbot run start-dev
+
+Or with full env variables,
+
+    $ docker run -it --rm \
       -e HUBOT_SLACK_TOKEN=<YOUR_SLACK_TOKEN> \
       -e FIREBASE_URL=<FIREBASE_URL> \
       -e FIREBASE_SECRET=<FIREBASE_SECRET> \
       -e EXPRESS_PORT=<PORT_FOR_HUBOT> \
       riiid/riiidbot
-
-Override `entrypoint` to test it locally.
-
-    $ docker run -it -p 9000:9000 --entrypoint=/src/hubot/bin/hubot riiid/riiidbot
 
 > passing `--rm` will always give you fresh container. see `$ docker run --help`.
 
@@ -33,22 +38,19 @@ See `scripts/example.coffee`, or visit [Scripting Guide](https://github.com/gith
 
 ## Deploy
 
-### Build Image
+### elastic beanstalk
 
-To build docker image for `riiidbot`,
+    $ eb init
+    $ eb create
+    $ eb setenv HUBOT_SLACK_TOKEN=<YOUR_SLACK_TOKEN> \
+      FIREBASE_URL=<FIREBASE_URL> \
+      FIREBASE_SECRET=<FIREBASE_SECRET> \
+      EXPRESS_PORT=<PORT_FOR_HUBOT>
+    $ eb deploy
 
-    $ docker build -t riiid/riiidbot .
+### docker images
 
-### Test Image on local
+You can pull latest docker image for `riiidbot` via [Docker Hub](https://hub.docker.com/r/riiid/riiidbot/)
 
+    $ docker pull riiid/riiidbot
     $ docker run -it --rm riiid/riiidbot run start-dev
-
-or If you with test with full env variables,
-
-    $ docker run -it --rm \
-      -p <HOST_PORT>:<PORT_FOR_HUBOT> \
-      -e HUBOT_SLACK_TOKEN=<YOUR_SLACK_TOKEN> \
-      -e FIREBASE_URL=<FIREBASE_URL> \
-      -e FIREBASE_SECRET=<FIREBASE_SECRET> \
-      -e EXPRESS_PORT=<PORT_FOR_HUBOT> \
-      riiid/riiidbot
